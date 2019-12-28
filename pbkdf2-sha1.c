@@ -380,6 +380,7 @@ void sha1_hmac_finish(sha1_context * ctx, unsigned char output[20])
 
 }
 
+#if 0
 /*
  * SHA1 HMAC context reset
  */
@@ -402,7 +403,7 @@ void sha1_hmac(const unsigned char *key, int keylen,
 	sha1_hmac_finish(&ctx, output);
 
 }
-
+#endif
 
 
 

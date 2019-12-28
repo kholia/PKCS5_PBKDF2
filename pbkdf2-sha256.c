@@ -392,6 +392,7 @@ void sha2_hmac_finish( sha2_context *ctx, unsigned char output[32] )
     memset( tmpbuf, 0, sizeof( tmpbuf ) );
 }
 
+#if 0
 /*
  * SHA-256 HMAC context reset
  */
@@ -416,6 +417,7 @@ void sha2_hmac( const unsigned char *key, size_t keylen,
 
     memset( &ctx, 0, sizeof( sha2_context ) );
 }
+#endif
 
 
 
