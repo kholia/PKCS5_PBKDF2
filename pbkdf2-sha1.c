@@ -73,7 +73,7 @@ typedef struct {
 /*
  * SHA-1 context setup
  */
-void sha1_starts(sha1_context * ctx)
+static void sha1_starts(sha1_context * ctx)
 {
 	ctx->total[0] = 0;
 	ctx->total[1] = 0;
@@ -244,7 +244,7 @@ static void sha1_process(sha1_context * ctx, const unsigned char data[64])
 /*
  * SHA-1 process buffer
  */
-void sha1_update(sha1_context * ctx, const unsigned char *input, int ilen)
+static void sha1_update(sha1_context * ctx, const unsigned char *input, int ilen)
 {
 	int fill;
 	unsigned long left;
@@ -290,7 +290,7 @@ static const unsigned char sha1_padding[64] = {
 /*
  * SHA-1 final digest
  */
-void sha1_finish(sha1_context * ctx, unsigned char output[20])
+static void sha1_finish(sha1_context * ctx, unsigned char output[20])
 {
 	unsigned long last, padn;
 	unsigned long high, low;
@@ -319,7 +319,7 @@ void sha1_finish(sha1_context * ctx, unsigned char output[20])
 /*
  * output = SHA-1( input buffer )
  */
-void sha1(const unsigned char *input, int ilen, unsigned char output[20])
+static void sha1(const unsigned char *input, int ilen, unsigned char output[20])
 {
 	sha1_context ctx;
 
@@ -333,7 +333,7 @@ void sha1(const unsigned char *input, int ilen, unsigned char output[20])
 /*
  * SHA-1 HMAC context setup
  */
-void sha1_hmac_starts(sha1_context * ctx, const unsigned char *key, int keylen)
+static void sha1_hmac_starts(sha1_context * ctx, const unsigned char *key, int keylen)
 {
 	int i;
 	unsigned char sum[20];
@@ -360,7 +360,7 @@ void sha1_hmac_starts(sha1_context * ctx, const unsigned char *key, int keylen)
 /*
  * SHA-1 HMAC process buffer
  */
-void sha1_hmac_update(sha1_context * ctx, const unsigned char *input, int ilen)
+static void sha1_hmac_update(sha1_context * ctx, const unsigned char *input, int ilen)
 {
 	sha1_update(ctx, input, ilen);
 }
@@ -368,7 +368,7 @@ void sha1_hmac_update(sha1_context * ctx, const unsigned char *input, int ilen)
 /*
  * SHA-1 HMAC final digest
  */
-void sha1_hmac_finish(sha1_context * ctx, unsigned char output[20])
+static void sha1_hmac_finish(sha1_context * ctx, unsigned char output[20])
 {
 	unsigned char tmpbuf[20];
 
@@ -384,7 +384,7 @@ void sha1_hmac_finish(sha1_context * ctx, unsigned char output[20])
 /*
  * SHA1 HMAC context reset
  */
-void sha1_hmac_reset(sha1_context * ctx)
+static void sha1_hmac_reset(sha1_context * ctx)
 {
 	sha1_starts(ctx);
 	sha1_update(ctx, ctx->ipad, 64);
@@ -393,7 +393,7 @@ void sha1_hmac_reset(sha1_context * ctx)
 /*
  * output = HMAC-SHA-1( hmac key, input buffer )
  */
-void sha1_hmac(const unsigned char *key, int keylen,
+static void sha1_hmac(const unsigned char *key, int keylen,
     const unsigned char *input, int ilen, unsigned char output[20])
 {
 	sha1_context ctx;
@@ -562,7 +562,7 @@ typedef struct {
 	char dk[1024];		// Remember to set this to max dkLen
 } testvector;
 
-int do_test(testvector * tv)
+static int do_test(testvector * tv)
 {
 	printf("Started %s\n", tv->t);
 	fflush(stdout);
