@@ -414,7 +414,7 @@ static void sha1_hmac(const unsigned char *key, int keylen,
 #define min( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #endif
 
-void PKCS5_PBKDF2_HMAC(const unsigned char *password, size_t plen,
+void PKCS5_PBKDF2_HMAC_SHA1(const unsigned char *password, size_t plen,
     const unsigned char *salt, size_t slen,
     const unsigned long iteration_count, const unsigned long key_length,
     unsigned char *output)
@@ -571,7 +571,7 @@ static int do_test(testvector * tv)
 		return -1;
 	}
 
-	PKCS5_PBKDF2_HMAC(tv->p, tv->plen, tv->s, tv->slen, tv->c,
+	PKCS5_PBKDF2_HMAC_SHA1(tv->p, tv->plen, tv->s, tv->slen, tv->c,
 	    tv->dkLen, key);
 
 	if (memcmp(tv->dk, key, tv->dkLen) != 0) {
